@@ -112,8 +112,8 @@ sudo bash {baseDir}/bin/setup.sh
 
 ## Important notes
 
-- **Silent by design:** cron runs every hour at :05 and logs to `/var/log/time-clawshine.log`. No output unless there is a failure.
+- **Silent by design:** cron runs every hour at :05 and logs to `/var/log/quick-backup-restore.log`. No output unless there is a failure.
 - **Telegram fires only on failure.** If the user has not configured `bot_token` and `chat_id`, failures are logged only.
 - **This is the time machine layer.** It protects against "the agent broke something in the last 3 days." It is NOT a disaster recovery backup — that should be handled by an off-VM backup (e.g. restic to a remote server).
-- **Password:** The restic repository is AES-256 encrypted. The password is at `/etc/time-clawshine.pass` (chmod 600). Losing it means losing access to all snapshots.
+- **Password:** The restic repository is AES-256 encrypted. The password is at `/etc/quick-backup-restore.pass` (chmod 600). Losing it means losing access to all snapshots.
 - **Never commit `secrets.env` or `.pass` files to git.** They are excluded via `.gitignore`.
