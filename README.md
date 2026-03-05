@@ -12,7 +12,7 @@ Restic-powered, YAML-configured, Telegram-notified on failure. Silent on success
 
 ```bash
 git clone https://github.com/marzliak/quick-backup-restore
-cd time-clawshine
+cd quick-backup-restore
 nano config.yaml          # optional: add Telegram bot_token + chat_id for failure alerts
 sudo bin/setup.sh         # installs deps, initializes repo, registers cron
 ```

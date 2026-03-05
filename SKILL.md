@@ -6,11 +6,13 @@ metadata: { "openclaw": { "emoji": "⏱", "requires": { "bins": ["bash", "openss
 
 # ⏱🦞 Quick Backup and Restore (time machine)
 
-Hourly incremental backup for this OpenClaw instance — restic-powered, YAML-configured. Silent on success, Telegram notification on failure.
+Your OpenClaw agent builds memory, preferences, and context over time — and agents make mistakes. They overwrite things. They corrupt their own context. When that happens, you want to go back to *exactly* 2 hours ago, not yesterday's backup, not a full system restore.
+
+This skill gives your agent hourly snapshots of its own brain. Restic-powered, encrypted, silent on success — and it pings you on Telegram only when something breaks.
 
 ## Overview
 
-Quick Backup and Restore (time machine) protects OpenClaw's runtime context (memory, sessions, credentials, config) with hourly snapshots. It runs automatically via cron. You can also trigger it manually or restore any point in the last 72 hours.
+Quick Backup and Restore protects OpenClaw's runtime context (memory, sessions, credentials, config) with hourly snapshots. It runs automatically via cron. You can also trigger it manually or restore any point in the last 72 hours.
 
 **Repository:** `{baseDir}/../../../var/backups/quick-backup-restore` (or as configured in `{baseDir}/config.yaml`)
 **Log:** `/var/log/quick-backup-restore.log`
