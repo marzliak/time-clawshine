@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Time Clawshine are documented here.
+All notable changes to Quick Backup and Restore (time machine) are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---

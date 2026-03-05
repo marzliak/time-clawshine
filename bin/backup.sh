@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# bin/backup.sh — Time Clawshine backup engine
+# bin/backup.sh — Quick Backup and Restore (time machine) backup engine
 # Called by cron every hour — silent on success, Telegram on failure
 # =============================================================================
 
@@ -16,11 +16,11 @@ tc_load_config
 touch "$LOG_FILE" 2>/dev/null || { echo "ERROR: Cannot write to $LOG_FILE"; exit 1; }
 
 # --- Concurrency lock — skip if another backup is already running -----------
-exec 200>/var/lock/time-clawshine.lock
-chmod 600 /var/lock/time-clawshine.lock 2>/dev/null || true
+exec 200>/var/lock/quick-backup-restore.lock
+chmod 600 /var/lock/quick-backup-restore.lock 2>/dev/null || true
 flock -n 200 || { log_warn "Another backup is already running — skipping"; exit 0; }
 
-log_info "--- Time Clawshine started ---"
+log_info "--- Quick Backup and Restore (time machine) started ---"
 
 # --- Validate backup paths --------------------------------------------------
 tc_validate_paths || exit 1
@@ -63,4 +63,4 @@ if [[ $FORGET_EXIT -ne 0 ]]; then
 fi
 
 log_info "Retention OK"
-log_info "--- Time Clawshine finished ---"
+log_info "--- Quick Backup and Restore (time machine) finished ---"

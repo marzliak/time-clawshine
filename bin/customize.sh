@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# bin/customize.sh — Time Clawshine AI-assisted path customization
+# bin/customize.sh — Quick Backup and Restore (time machine) AI-assisted path customization
 #
 # Analyzes your actual OpenClaw workspace and uses your agent to suggest:
 #   - Extra paths worth backing up (whitelist)
@@ -34,9 +34,9 @@ if ! command -v openclaw &>/dev/null; then
     exit 1
 fi
 
-echo "╔══════════════════════════════════════════════════════╗"
-echo "║       Time Clawshine — Customize Backup Paths        ║"
-echo "╚══════════════════════════════════════════════════════╝"
+echo "╔════════════════════════════════════════════════════════════════════╗"
+echo "║  Quick Backup and Restore (time machine) — Customize Backup Paths  ║"
+echo "╚════════════════════════════════════════════════════════════════════╝"
 echo ""
 echo "This command will:"
 echo "  1. Scan your OpenClaw workspace"

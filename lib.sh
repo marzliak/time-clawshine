@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# lib.sh — shared functions for Time Clawshine
+# lib.sh — shared functions for Quick Backup and Restore (time machine)
 # Sourced by all bin/ scripts via: source "$TC_ROOT/lib.sh"
 # =============================================================================
 
@@ -9,7 +9,7 @@
 TC_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="${TC_CONFIG:-$TC_ROOT/config.yaml}"
 
-[[ -f "$CONFIG_FILE" ]] || { echo "[time-clawshine] ERROR: config.yaml not found at $CONFIG_FILE"; exit 1; }
+[[ -f "$CONFIG_FILE" ]] || { echo "[quick-backup-restore] ERROR: config.yaml not found at $CONFIG_FILE"; exit 1; }
 
 # --- YAML parser (requires yq v4) -------------------------------------------
 _cfg() {
@@ -39,7 +39,7 @@ tc_load_config() {
     _require_cfg() {
         local name="$1" val="$2"
         if [[ -z "$val" || "$val" == "null" ]]; then
-            echo "[time-clawshine] ERROR: config.yaml missing required field: $name"
+            echo "[quick-backup-restore] ERROR: config.yaml missing required field: $name"
             exit 1
         fi
     }
@@ -104,7 +104,7 @@ tg_failure() {
     local safe_msg
     safe_msg=$(head -c 800 <<< "$error_msg")
     [[ ${#error_msg} -gt 800 ]] && safe_msg+=$'\n[...truncated]'
-    tg_send "🔴 *Time Clawshine — Backup FALHOU*
+    tg_send "🔴 *Quick Backup and Restore (time machine) — Backup FALHOU*
 🖥 \`$hostname\`
 🕐 $(timestamp)
 
@@ -138,7 +138,7 @@ tc_check_deps() {
         command -v "$cmd" &>/dev/null || missing+=("$cmd")
     done
     if [[ ${#missing[@]} -gt 0 ]]; then
-        echo "[time-clawshine] ERROR: Missing dependencies: ${missing[*]}"
+        echo "[quick-backup-restore] ERROR: Missing dependencies: ${missing[*]}"
         echo "Run: sudo bin/setup.sh"
         exit 1
     fi

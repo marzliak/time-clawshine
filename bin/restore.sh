@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# bin/restore.sh — Time Clawshine interactive restore helper
+# bin/restore.sh — Quick Backup and Restore (time machine) interactive restore helper
 # Usage: sudo bin/restore.sh [snapshot_id] [--file path] [--target dir]
 # =============================================================================
 
@@ -46,9 +46,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo "╔══════════════════════════════════════╗"
-echo "║    Time Clawshine — Restore          ║"
-echo "╚══════════════════════════════════════╝"
+echo "╔═════════════════════════════════════════════════════╗"
+echo "║  Quick Backup and Restore (time machine) — Restore  ║"
+echo "╚═════════════════════════════════════════════════════╝"
 echo ""
 
 # --- Show available snapshots -----------------------------------------------

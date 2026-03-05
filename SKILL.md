@@ -1,28 +1,28 @@
 ---
-name: time-clawshine
+name: quick-backup-restore
 description: "Use this skill when the user asks to 'backup OpenClaw', 'restore a snapshot', 'roll back memory', 'check backup status', 'view backup history', 'undo agent changes', or 'set up time machine backup'."
-metadata: { "openclaw": { "emoji": "⏱", "requires": { "bins": ["bash", "openssl"] }, "install": [{ "id": "setup", "kind": "shell", "label": "Run Time Clawshine setup", "command": "sudo bash {baseDir}/bin/setup.sh" }], "homepage": "https://github.com/marzliak/time-clawshine" } }
+metadata: { "openclaw": { "emoji": "⏱", "requires": { "bins": ["bash", "openssl"] }, "install": [{ "id": "setup", "kind": "shell", "label": "Run Quick Backup and Restore (time machine) setup", "command": "sudo bash {baseDir}/bin/setup.sh" }], "homepage": "https://github.com/marzliak/time-clawshine" } }
 ---
 
-# ⏱🦞 Time Clawshine
+# ⏱🦞 Quick Backup and Restore (time machine)
 
 Hourly incremental backup for this OpenClaw instance — restic-powered, YAML-configured. Silent on success, Telegram notification on failure.
 
 ## Overview
 
-Time Clawshine protects OpenClaw's runtime context (memory, sessions, credentials, config) with hourly snapshots. It runs automatically via cron. You can also trigger it manually or restore any point in the last 72 hours.
+Quick Backup and Restore (time machine) protects OpenClaw's runtime context (memory, sessions, credentials, config) with hourly snapshots. It runs automatically via cron. You can also trigger it manually or restore any point in the last 72 hours.
 
-**Repository:** `{baseDir}/../../../var/backups/time-clawshine` (or as configured in `{baseDir}/config.yaml`)
-**Log:** `/var/log/time-clawshine.log`
-**Password file:** `/etc/time-clawshine.pass`
+**Repository:** `{baseDir}/../../../var/backups/quick-backup-restore` (or as configured in `{baseDir}/config.yaml`)
+**Log:** `/var/log/quick-backup-restore.log`
+**Password file:** `/etc/quick-backup-restore.pass`
 
 ---
 
-## When the user asks to set up or install Time Clawshine
+## When the user asks to set up or install Quick Backup and Restore (time machine)
 
 1. Check if already set up:
    ```bash
-   restic -r /var/backups/time-clawshine --password-file /etc/time-clawshine.pass snapshots 2>/dev/null && echo "Already initialized"
+   restic -r /var/backups/quick-backup-restore --password-file /etc/quick-backup-restore.pass snapshots 2>/dev/null && echo "Already initialized"
    ```
 2. If not initialized, ask the user to fill in `{baseDir}/config.yaml` with their Telegram `bot_token` and `chat_id`, then run:
    ```bash
@@ -30,7 +30,7 @@ Time Clawshine protects OpenClaw's runtime context (memory, sessions, credential
    ```
 3. Confirm setup succeeded by tailing the log:
    ```bash
-   tail -5 /var/log/time-clawshine.log
+   tail -5 /var/log/quick-backup-restore.log
    ```
 
 ---
@@ -43,7 +43,7 @@ sudo bash {baseDir}/bin/backup.sh
 
 Then confirm with:
 ```bash
-tail -5 /var/log/time-clawshine.log
+tail -5 /var/log/quick-backup-restore.log
 ```
 
 ---
@@ -52,18 +52,18 @@ tail -5 /var/log/time-clawshine.log
 
 Show the last 10 log lines:
 ```bash
-tail -20 /var/log/time-clawshine.log
+tail -20 /var/log/quick-backup-restore.log
 ```
 
 List all snapshots (most recent first):
 ```bash
-restic -r /var/backups/time-clawshine --password-file /etc/time-clawshine.pass snapshots
+restic -r /var/backups/quick-backup-restore --password-file /etc/quick-backup-restore.pass snapshots
 ```
 
 Show what changed between the two most recent snapshots:
 ```bash
-SNAPS=$(restic -r /var/backups/time-clawshine --password-file /etc/time-clawshine.pass snapshots --json | jq -r '.[-2:][].id')
-restic -r /var/backups/time-clawshine --password-file /etc/time-clawshine.pass diff $SNAPS
+SNAPS=$(restic -r /var/backups/quick-backup-restore --password-file /etc/quick-backup-restore.pass snapshots --json | jq -r '.[-2:][].id')
+restic -r /var/backups/quick-backup-restore --password-file /etc/quick-backup-restore.pass diff $SNAPS
 ```
 
 ---
@@ -94,7 +94,7 @@ Always confirm with the user before executing a full restore to `/`.
 ## When the user asks to check repo integrity
 
 ```bash
-restic -r /var/backups/time-clawshine --password-file /etc/time-clawshine.pass check
+restic -r /var/backups/quick-backup-restore --password-file /etc/quick-backup-restore.pass check
 ```
 
 ---
