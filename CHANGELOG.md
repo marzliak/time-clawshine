@@ -38,4 +38,4 @@ Initial release.
 
 ---
 
-[1.0.0]: https://github.com/marzliak/time-clawshine/releases/tag/v1.0.0
+[1.0.0]: https://github.com/marzliak/quick-backup-restore/releases/tag/v1.0.0

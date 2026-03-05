@@ -1,7 +1,7 @@
 {
-  "name": "time-clawshine",
+  "name": "quick-backup-restore",
   "version": "1.0.0",
-  "displayName": "Time Clawshine",
+  "displayName": "Quick Backup and Restore (time machine)",
   "description": "Hourly incremental backup for OpenClaw instances. Restic-powered, YAML-configured, Telegram-notified on failure. Silent on success.",
   "emoji": "⏱",
   "author": {
@@ -22,7 +22,7 @@
     "command": "sudo bash {baseDir}/bin/setup.sh"
   },
   "links": {
-    "homepage": "https://github.com/marzliak/time-clawshine",
-    "issues": "https://github.com/marzliak/time-clawshine/issues"
+    "homepage": "https://github.com/marzliak/quick-backup-restore",
+    "issues": "https://github.com/marzliak/quick-backup-restore/issues"
   }
 }
