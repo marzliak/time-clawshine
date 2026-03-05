@@ -1,0 +1,28 @@
+{
+  "name": "time-clawshine",
+  "version": "1.0.0",
+  "displayName": "Time Clawshine",
+  "description": "Hourly incremental backup for OpenClaw instances. Restic-powered, YAML-configured, Telegram-notified on failure. Silent on success.",
+  "emoji": "⏱",
+  "author": {
+    "name": "Leandro Marz",
+    "github": "marzliak"
+  },
+  "license": "MIT",
+  "platforms": ["linux"],
+  "tags": ["backup", "restic", "memory", "restore", "time-machine", "ops"],
+  "openclaw": {
+    "minVersion": "2026.1.0"
+  },
+  "requires": {
+    "bins": ["bash", "openssl", "curl", "jq"],
+    "auto_install": ["restic", "yq"]
+  },
+  "install": {
+    "command": "sudo bash {baseDir}/bin/setup.sh"
+  },
+  "links": {
+    "homepage": "https://github.com/marzliak/time-clawshine",
+    "issues": "https://github.com/marzliak/time-clawshine/issues"
+  }
+}

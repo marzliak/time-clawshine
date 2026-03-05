@@ -1,78 +1,63 @@
-# =============================================================================
-# Time Clawshine — Configuration
-# Edit this file, then run: sudo bin/setup.sh
-# For AI-assisted path customization: sudo bin/customize.sh
-# =============================================================================
-
 repository:
-  # Local path where restic will store encrypted snapshots
+  # Caminho local onde os snapshots restic serão armazenados.
+  # Pode ser um path local, S3, SFTP, etc. (qualquer backend suportado pelo restic)
+  # Exemplo local: /var/backups/time-clawshine
+  # Exemplo S3:    s3:s3.amazonaws.com/meu-bucket/time-clawshine
   path: /var/backups/time-clawshine
-  # Encryption password file — auto-generated on setup, never commit this
+
+  # Arquivo com a senha de criptografia do repositório restic (AES-256).
+  # Criado automaticamente pelo setup.sh com uma senha aleatória de 64 chars.
+  # NUNCA commite este arquivo. Faça backup dele separadamente.
   password_file: /etc/time-clawshine.pass
 
 retention:
-  # Number of snapshots to keep — default: 72 = 3 days at 1 backup/hour
+  # Quantos snapshots manter. Com cron a cada hora: 72 = 3 dias.
+  # Ajuste para mais ou menos dependendo do espaço disponível.
   keep_last: 72
 
 schedule:
-  # Standard cron expression — default: every hour at minute 5
+  # Expressão cron para o backup automático.
+  # Padrão: todo :05 da hora (5 * * * *)
+  # Para backup a cada 30 min: */30 * * * *
+  # Para backup diário à meia-noite: 0 0 * * *
   cron: "5 * * * *"
 
 backup:
-  # -------------------------------------------------------------------------
-  # STANDARD OPENCLAW PATHS — covers every default file in a fresh install.
-  # These are safe defaults for any OpenClaw instance.
-  # Run `sudo bin/customize.sh` to get AI-suggested additions for your setup.
-  # -------------------------------------------------------------------------
+  # Caminhos a incluir no backup. Ajuste conforme sua instalação do OpenClaw.
+  # O padrão cobre o contexto completo de um agente principal (main).
   paths:
-    # Core workspace files (AGENTS.md, SOUL.md, USER.md, IDENTITY.md,
-    # TOOLS.md, HEARTBEAT.md, BOOT.md, MEMORY.md, memory/, skills/)
-    - /root/.openclaw/workspace
+    - /root/.openclaw/workspace        # memória, skills, SOUL.md, USER.md, etc.
+    - /root/.openclaw/agents/main/sessions  # histórico de sessões (JSONL)
+    - /root/.openclaw/openclaw.json    # config principal do gateway
+    - /root/.openclaw/cron             # jobs agendados
 
-    # Full agent session history (JSONL)
-    - /root/.openclaw/agents/main/sessions
-
-    # Main config: gateway, model providers, bot tokens, API keys
-    - /root/.openclaw/openclaw.json
-
-    # Scheduled jobs
-    - /root/.openclaw/cron
-
-    # API keys and credentials (chmod 600 files)
-    - /root/.openclaw/credentials
-
-  # -------------------------------------------------------------------------
-  # EXCLUSIONS — patterns applied to everything above.
-  # Add more with `sudo bin/customize.sh` or edit directly here.
-  # -------------------------------------------------------------------------
+  # Padrões glob a excluir dentro dos paths acima.
   exclude:
-    - "*.bak"
-    - "*.reset"    # OpenClaw agent reset artifacts
-    - "*.tmp"
-    - "__pycache__"
-    - ".git"
-    - "node_modules"
-    - "*.log"
-
-  # -------------------------------------------------------------------------
-  # CUSTOM ADDITIONS — paths added by `bin/customize.sh` live here.
-  # You can also add them manually. One path per line.
-  # -------------------------------------------------------------------------
-  extra_paths: []
-
-  # -------------------------------------------------------------------------
-  # CUSTOM EXCLUSIONS — patterns added by `bin/customize.sh` live here.
-  # -------------------------------------------------------------------------
-  extra_excludes: []
+    - "*.bak"           # backups temporários
+    - "*.reset"         # arquivos de reset de sessão
+    - "*.tmp"           # arquivos temporários
+    - "__pycache__"     # cache Python
+    - ".git"            # repositórios git (já versionados separadamente)
 
 notifications:
-  # Telegram — fires ONLY on failure. Leave bot_token empty to disable.
   telegram:
-    enabled: true
-    bot_token: ""     # e.g. 123456:ABC-DEF...
-    chat_id: ""       # e.g. -100123456789
+    # Ativar notificação Telegram apenas em caso de falha.
+    # Se disabled, erros são registrados apenas no log.
+    enabled: false
+
+    # Token do bot Telegram. Obtenha em @BotFather.
+    # Exemplo: 1234567890:AAHxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    bot_token: ""
+
+    # ID do chat ou usuário que receberá as notificações.
+    # Para obter o seu: envie /start para @userinfobot no Telegram.
+    # Exemplo: 5472904791
+    chat_id: ""
 
 logging:
+  # Caminho do arquivo de log. Rotacionado automaticamente pelo setup.sh via logrotate.
   file: /var/log/time-clawshine.log
-  # Set true to log full restic output on every run (noisy, useful for debugging)
+
+  # verbose: true imprime detalhes de cada arquivo processado pelo restic.
+  # Útil para debug. Em produção, mantenha false.
   verbose: false
